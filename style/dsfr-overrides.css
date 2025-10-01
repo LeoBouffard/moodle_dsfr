@@ -1,0 +1,13 @@
+body {
+  font-family: 'Spectral', sans-serif; /* conforme DSFR */
+}
+
+/* Exemples de styles personnalisés */
+.fr-header {
+  background-color: #003366; /* Bleu France */
+}
+.fr-footer {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 1rem 0;
+}
