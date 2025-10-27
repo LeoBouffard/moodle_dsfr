@@ -1,13 +1,46 @@
-body {
-  font-family: 'Spectral', sans-serif; /* conforme DSFR */
+/* === Correction des débordements horizontaux === */
+
+/* Empêche les scrollbars horizontales dues aux marges DSFR/Bootstrap */
+html, body {
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
 }
 
-/* Exemples de styles personnalisés */
-.fr-header {
-  background-color: #003366; /* Bleu France */
+/* Aligne correctement le container principal */
+#page,
+#page-content,
+.fr-container,
+.container,
+.container-fluid {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
 }
-.fr-footer {
-  background-color: #f0f0f0;
-  text-align: center;
-  padding: 1rem 0;
+
+/* Harmonise la largeur du header DSFR avec celle du contenu */
+.fr-header__body,
+.fr-footer__body {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Évite que certaines zones de Moodle (comme le drawer) ne débordent */
+#page {
+  overflow-x: hidden;
+}
+
+/* Ajuste le comportement du drawer Boost */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1040;
+  background: #fff;
+  border-right: 1px solid #ddd;
 }

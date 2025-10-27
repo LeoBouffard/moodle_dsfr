@@ -7,10 +7,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
     /**
      * Affiche les blocs de la région side-pre (compat avec anciens layouts).
      */
-    public function firstview_fakeblocks(): string {
+    public function firstview_fakeblocks(): bool {
         if ($this->page->blocks->region_has_content('side-pre', $this)) {
             return $this->blocks('side-pre');
         }
-        return '';
+        return true;
     }
 }
