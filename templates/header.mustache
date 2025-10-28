@@ -1,0 +1,50 @@
+<header class="fr-header pl-5">
+    <div class="fr-header__body">
+        <div class="fr-container fr-header__body-row">
+
+            <!-- Logo et titre -->
+            <div class="fr-header__brand fr-enlarge-link">
+                <a href="{{wwwroot}}" class="fr-header__brand-link">
+                    <p class="fr-logo">
+                        République<br>Française
+                    </p>
+                    <span class="fr-header__service">
+                        <span class="fr-header__service-title">{{sitetitle}}</span>
+                        <span class="fr-header__service-tagline">{{siteline}}</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Menus utilisateur et langue -->
+            <div class="fr-header__tools">
+                <div class="fr-header__tools-links" data-fr-js-header-links="true">
+                    {{{usermenu}}}   <!-- Laisser Moodle gérer le HTML complet -->
+                    {{{langmenu}}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu principal horizontal -->
+    {{#primarymenu.mobileprimarynav}}
+    <nav class="fr-header__menu fr-nav" role="navigation">
+        <ul class="fr-nav__list d-flex">  <!-- Flex pour horizontal -->
+            {{#.}}
+                <li class="fr-nav__item {{#isactive}}fr-nav__item--active{{/isactive}}">
+                    <a href="{{url}}" class="fr-nav__link">{{text}}</a>
+
+                    {{#children.length}}
+                    <ul class="fr-nav__sub-list">
+                        {{#children}}
+                            <li class="fr-nav__sub-item">
+                                <a href="{{url}}" class="fr-nav__sub-link">{{text}}</a>
+                            </li>
+                        {{/children}}
+                    </ul>
+                    {{/children.length}}
+                </li>
+            {{/.}}
+        </ul>
+    </nav>
+    {{/primarymenu.mobileprimarynav}}
+</header>
