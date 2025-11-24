@@ -6,7 +6,7 @@
             <div class="fr-header__brand fr-enlarge-link">
                 <a href="{{wwwroot}}" class="fr-header__brand-link">
                     <p class="fr-logo">
-                        République<br>Française
+                        Ministère<br>des armées<br>et des anciens<br>combattants
                     </p>
                     <span class="fr-header__service">
                         <span class="fr-header__service-title">{{sitetitle}}</span>
@@ -26,25 +26,19 @@
     </div>
 
     <!-- Menu principal horizontal -->
-    {{#primarymenu.mobileprimarynav}}
-    <nav class="fr-header__menu fr-nav" role="navigation">
-        <ul class="fr-nav__list d-flex">  <!-- Flex pour horizontal -->
-            {{#.}}
-                <li class="fr-nav__item {{#isactive}}fr-nav__item--active{{/isactive}}">
-                    <a href="{{url}}" class="fr-nav__link">{{text}}</a>
-
-                    {{#children.length}}
-                    <ul class="fr-nav__sub-list">
-                        {{#children}}
-                            <li class="fr-nav__sub-item">
-                                <a href="{{url}}" class="fr-nav__sub-link">{{text}}</a>
-                            </li>
-                        {{/children}}
-                    </ul>
-                    {{/children.length}}
-                </li>
-            {{/.}}
-        </ul>
-    </nav>
-    {{/primarymenu.mobileprimarynav}}
 </header>
+
+    <div class="fr-header__menu fr-nav d-flex justify-content-around flex-wrap" role="navigation">
+        {{#primarymenu.mobileprimarynav}}
+            <nav class="fr-nav__section flex-grow-1 text-center">
+                <ul class="fr-nav__list">
+                    {{#.}}
+                        <li class="fr-nav__item {{#isactive}}fr-nav__item--active{{/isactive}}">
+                            <a href="{{url}}" class="fr-nav__link">{{text}}</a>
+                        </li>
+                    {{/.}}
+                </ul>
+            </nav>
+        {{/primarymenu.mobileprimarynav}}
+    </div>
+

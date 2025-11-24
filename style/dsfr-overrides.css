@@ -5,6 +5,9 @@ html, body {
   overflow-x: hidden !important;
   margin: 0;
   padding: 0;
+  height: auto !important;
+  overflow-y: visible !important;
+
 }
 
 /* Aligne correctement le container principal */
@@ -21,14 +24,6 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Harmonise la largeur du header DSFR avec celle du contenu */
-.fr-header__body,
-.fr-footer__body {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 100%;
-}
-
 /* Évite que certaines zones de Moodle (comme le drawer) ne débordent */
 #page {
   overflow-x: hidden;
@@ -43,4 +38,180 @@ html, body {
   z-index: 1040;
   background: #fff;
   border-right: 1px solid #ddd;
+}
+
+
+.fr-header__menu.d-flex {
+    display: flex;
+    justify-content: center; /* tout centré globalement */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0; /* pas d’espace entre navs, on gère avec les bordures */
+    width: 100%;
+    border-top: 1px solid var(--border-default-grey); /* optionnel : ligne au-dessus */
+    border-bottom: 1px solid var(--border-default-grey); /* optionnel : ligne en dessous */
+    background: var(--background-default-grey);
+    padding: 0.5rem 0;
+}
+
+.fr-header__menu nav.fr-nav__section {
+    flex-grow: 1;
+    text-align: center;
+    border-left: 1px solid var(--border-default-grey);
+}
+
+.fr-header__menu nav.fr-nav__section:first-child {
+    border-left: none; /* pas de bordure sur le premier */
+}
+
+.fr-header__menu .fr-nav__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.fr-header__menu .fr-nav__item {
+    display: inline-block;
+}
+
+.fr-header__menu a.fr-nav__link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-default-grey);
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.fr-header__menu a.fr-nav__link:hover {
+    text-decoration: underline;
+    color: var(--text-title-grey);
+}
+
+.fr-header__menu .fr-nav__item--active a.fr-nav__link {
+    font-weight: 600;
+    color: var(--text-action-high-blue-france);
+}
+
+/* ==========================
+   STYLE DU MENU UTILISATEUR
+   ========================== */
+
+/* Style par défaut */
+#manual-usermenu a,
+#action-menu-0-menu a {
+    color: var(--text-default-grey, #161616);
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: color 0.2s ease;
+}
+
+/* Hover uniquement sur le texte */
+#manual-usermenu a:hover,
+#action-menu-0-menu a:hover {
+    color: #000074; /* Bleu marine DSFR */
+    background-color: transparent !important; /* Pas de fond coloré */
+    text-decoration: underline; /* Optionnel : souligne au survol */
+}
+
+/* Bordure subtile entre les éléments */
+#manual-usermenu li,
+#action-menu-0-menu li {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Coins arrondis + ombre du menu */
+#manual-usermenu,
+#action-menu-0-menu {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.login-container h1 {
+    color: #0b2e6f; /* bleu DSFR */
+    text-align: center;
+}
+
+.login-form {
+    margin-top: 1rem;
+}
+
+/* Groupe des catégories (Liens utiles / Services) alignées horizontalement */
+.fr-footer__content-group {
+    margin-left : 40%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15rem;
+}
+
+@media (max-width: 1332px) { /* breakpoint tablette/mobile */
+    .fr-footer__content-group {
+        margin-left: 10%;
+    }
+}
+
+@media (min-width: 62em) {
+    .fr-footer__content {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        max-width: none !important;
+        flex-basis: auto !important;
+    }
+}
+
+
+
+/* Chaque colonne reste verticale */
+.fr-footer__content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Titre de catégorie */
+.fr-footer__content-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Liens verticaux */
+.fr-footer__content-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Style des liens */
+.fr-footer__content-link {
+    text-decoration: none;
+    color: #000;
+}
+
+.fr-footer__content-link:hover {
+    text-decoration: underline;
+    color: #000091;
+}
+
+/* Footer bottom */
+.fr-footer__bottom {
+    margin-top: 1.5rem;
+}
+
+/* Retirer l'alignement centré du footer DSFR */
+.fr-footer,
+.fr-footer * {
+    text-align: left !important;
 }

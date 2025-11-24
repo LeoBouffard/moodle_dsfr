@@ -57,8 +57,19 @@ $THEME->layouts = [
         'defaultregion' => 'side-pre',
     ],
     'login' => [
-        'file' => 'default.php',
+        'file' => 'login.php',
         'regions' => [],
         'options' => ['nofooter' => true, 'noheader' => true],
     ],
+    'mycourses' => [
+        'file' => 'default.php',
+        'regions' => ['side-pre'],
+        'defaultregion' => 'side-pre',
+    ],
+    'report' => [
+        'file' => 'default.php',
+        'regions' => ['side-pre'],
+        'defaultregion' => 'side-pre',
+    ],
+
 ];

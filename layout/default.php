@@ -8,6 +8,8 @@ echo $OUTPUT->doctype();
     <title><?php echo $OUTPUT->page_title(); ?></title>
     <?php echo $OUTPUT->standard_head_html(); ?>
     <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.min.css">
+    <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/style/dsfr-overrides.css">
+
 </head>
 
 <body <?php echo $OUTPUT->body_attributes(); ?>>
@@ -28,7 +30,7 @@ $langmenu = $OUTPUT->lang_menu();
 // Contexte header
 $headercontext = [
     'wwwroot' => $CFG->wwwroot,
-    'sitetitle' => format_string($SITE->shortname),
+    'sitetitle' => "EFORM",
     'siteline' => "Formation et innovation numérique",
     'usermenu' => $usermenu,
     'langmenu' => $langmenu,
@@ -63,16 +65,93 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
 
 <footer class="fr-footer" role="contentinfo" id="footer">
     <div class="fr-container">
-        <div class="fr-footer__body">
+
+        <!-- SECTION PRINCIPALE -->
+        <div class="fr-footer__body fr-footer__body--operator">
+
+            <!-- LOGO MINARM -->
             <div class="fr-footer__brand fr-enlarge-link">
-                <p class="fr-logo">République<br>Française</p>
+                <a class="fr-footer__brand-link" href="/" title="Retour à l’accueil">
+                    <p class="fr-logo">
+                        Ministère<br>
+                        des Armées<br>
+                        et des Anciens<br>
+                        combattants
+                    </p>
+                </a>
+            </div>
+
+            <!-- BLOCS DE LIENS (catégories horizontales) -->
+            <div class="fr-footer__content-group">
+
+                <!-- Bloc 1 -->
+                <div class="fr-footer__content">
+                    <h4 class="fr-footer__content-title">Liens utiles</h4>
+                    <ul class="fr-footer__content-list">
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">Accueil</a>
+                        </li>
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">À propos de nous</a>
+                        </li>
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">Nous contacter</a>
+                        </li>
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Bloc 2 -->
+                <div class="fr-footer__content">
+                    <h4 class="fr-footer__content-title">Services</h4>
+                    <ul class="fr-footer__content-list">
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">Support</a>
+                        </li>
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">Documentation</a>
+                        </li>
+                        <li class="fr-footer__content-item">
+                            <a href="#" class="fr-footer__content-link">Mon compte</a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
+
+        <!-- BAS DU FOOTER -->
         <div class="fr-footer__bottom">
-            <p>© 2025 - Moodle DSFR</p>
+
+            <ul class="fr-footer__bottom-list">
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Plan du site</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Accessibilité</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Mentions légales</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Données personnelles</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a href="#" class="fr-footer__bottom-link">Gestion des cookies</a>
+                </li>
+            </ul>
+
+            <div class="fr-footer__bottom-copy">
+                <p>© 2025 - Moodle DSFR</p>
+            </div>
+
         </div>
+
     </div>
 </footer>
+
 
 <?php echo $OUTPUT->standard_end_of_body_html(); ?>
 
