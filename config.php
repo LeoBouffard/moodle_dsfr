@@ -3,11 +3,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $THEME->name = 'moodle_dsfr';
 $THEME->parents = ['boost'];
-$THEME->sheets = ['dsfr-overrides'];
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->scss = function($theme) {
-    return theme_moodle_dsfr_get_main_scss_content($theme);
-};
+$THEME->rendererfactory = 'theme_overridden_renderer_factory'; // instruction pour override le thème parent
 
 // Appliquer le layout DSFR partout
 $THEME->layouts = [

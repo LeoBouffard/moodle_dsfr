@@ -1,13 +1,14 @@
 /* === Correction des débordements horizontaux === */
 
 /* Empêche les scrollbars horizontales dues aux marges DSFR/Bootstrap */
-html, body {
-  overflow-x: hidden !important;
-  margin: 0;
-  padding: 0;
-  height: auto !important;
-  overflow-y: visible !important;
-  pointer-events: all !important;
+html,
+body {
+    overflow-x: hidden !important;
+    margin: 0;
+    padding: 0;
+    height: auto !important;
+    overflow-y: visible !important;
+    pointer-events: all !important;
 
 }
 
@@ -17,36 +18,36 @@ html, body {
 .fr-container,
 .container,
 .container-fluid {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-  max-width: 100% !important;
-  box-sizing: border-box;
-}
-
-/* Évite que certaines zones de Moodle (comme le drawer) ne débordent */
-#page {
-  overflow-x: hidden;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
 }
 
 /* Ajuste le comportement du drawer Boost */
 .drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  z-index: 1040;
-  background: #fff;
-  border-right: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1040;
+    background: #fff;
+    border-right: 1px solid #ddd;
 }
 
+/* ==========================
+   STYLE DES ELEMENTS CLIQUABLES
+   ========================== */
 
 .btn-primary {
     background-color: #000091;
 }
 
-.btn:hover, .nav-link:hover, .dropdown-item:hover {
+.btn:hover,
+.nav-link:hover,
+.dropdown-item:hover {
     border-color: #000091;
     color: #000091;
 }
@@ -55,17 +56,21 @@ html, body {
     color: #000091;
 }
 
-a:hover{
+a:hover {
     color: #000091;
     text-decoration: none;
 }
 
-[class*="btn-"]:focus, [class*="form-"]:focus, a.dropdown-toggle:focus,[role="treeitem"][aria-expanded="true"]:focus>*:first-child, [role="treeitem"]:not([aria-expanded="true"]):focus  {
+[class*="btn-"]:focus,
+[class*="form-"]:focus,
+a.dropdown-toggle:focus,
+[role="treeitem"][aria-expanded="true"]:focus>*:first-child,
+[role="treeitem"]:not([aria-expanded="true"]):focus {
     box-shadow: 0 0 0 .25rem #000091;
 }
 
 .maincalendar .calendarmonth td.today .day-number-circle {
-    background-color : #000091
+    background-color: #000091
 }
 
 
@@ -75,13 +80,17 @@ a:hover{
 
 .fr-header__menu.d-flex {
     display: flex;
-    justify-content: center; /* tout centré globalement */
+    justify-content: center;
+    /* tout centré globalement */
     align-items: center;
     flex-wrap: wrap;
-    gap: 0; /* pas d’espace entre navs, on gère avec les bordures */
+    gap: 0;
+    /* pas d’espace entre navs, on gère avec les bordures */
     width: 100%;
-    border-top: 1px solid var(--border-default-grey); /* optionnel : ligne au-dessus */
-    border-bottom: 1px solid var(--border-default-grey); /* optionnel : ligne en dessous */
+    border-top: 1px solid var(--border-default-grey);
+    /* optionnel : ligne au-dessus */
+    border-bottom: 1px solid var(--border-default-grey);
+    /* optionnel : ligne en dessous */
     background: var(--background-default-grey);
     padding: 0.5rem 0;
 }
@@ -93,7 +102,8 @@ a:hover{
 }
 
 .fr-header__menu nav.fr-nav__section:first-child {
-    border-left: none; /* pas de bordure sur le premier */
+    border-left: none;
+    /* pas de bordure sur le premier */
 }
 
 .fr-header__menu .fr-nav__list {
@@ -143,9 +153,12 @@ a:hover{
 /* Hover uniquement sur le texte */
 #manual-usermenu a:hover,
 #action-menu-0-menu a:hover {
-    color: #000091; /* Bleu marine DSFR */
-    background-color: transparent !important; /* Pas de fond coloré */
-    text-decoration: underline; /* Optionnel : souligne au survol */
+    color: #000091;
+    /* Bleu marine DSFR */
+    background-color: transparent !important;
+    /* Pas de fond coloré */
+    text-decoration: underline;
+    /* Optionnel : souligne au survol */
 }
 
 /* Bordure subtile entre les éléments */
@@ -177,7 +190,8 @@ a:hover{
 }
 
 .login-container h1 {
-    color: #000091; /* bleu DSFR */
+    color: #000091;
+    /* bleu DSFR */
     text-align: center;
 }
 
@@ -192,13 +206,15 @@ a:hover{
 
 /* Groupe des catégories (Liens utiles / Services) alignées horizontalement */
 .fr-footer__content-group {
-    margin-left : 40%;
+    margin-left: 40%;
     display: flex;
     flex-wrap: nowrap;
     gap: 15rem;
 }
 
-@media (max-width: 1332px) { /* breakpoint tablette/mobile */
+@media (max-width: 1332px) {
+
+    /* breakpoint tablette/mobile */
     .fr-footer__content-group {
         margin-left: 10%;
     }
