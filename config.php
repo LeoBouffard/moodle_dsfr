@@ -9,7 +9,7 @@ $THEME->scss = function($theme) {
     return theme_moodle_dsfr_get_main_scss_content($theme);
 };
 
-// ✅ Appliquer ton layout DSFR partout
+// Appliquer le layout DSFR partout
 $THEME->layouts = [
     'base' => [
         'file' => 'default.php',

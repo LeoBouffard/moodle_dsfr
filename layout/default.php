@@ -7,7 +7,7 @@ echo $OUTPUT->doctype();
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
     <?php echo $OUTPUT->standard_head_html(); ?>
-    <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.min.css">
+    <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.min.css">    
     <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/style/dsfr-overrides.css">
 
 </head>
@@ -30,7 +30,7 @@ $langmenu = $OUTPUT->lang_menu();
 // Contexte header
 $headercontext = [
     'wwwroot' => $CFG->wwwroot,
-    'sitetitle' => "EFORM",
+    'sitetitle' => format_string($SITE->fullname),
     'siteline' => "Formation et innovation numérique",
     'usermenu' => $usermenu,
     'langmenu' => $langmenu,
@@ -85,7 +85,7 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
             <div class="fr-footer__content-group">
 
                 <!-- Bloc 1 -->
-                <div class="fr-footer__content">
+                <!-- <div class="fr-footer__content">
                     <h4 class="fr-footer__content-title">Liens utiles</h4>
                     <ul class="fr-footer__content-list">
                         <li class="fr-footer__content-item">
@@ -101,10 +101,10 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
                             <a href="#" class="fr-footer__content-link">FAQ</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
 
                 <!-- Bloc 2 -->
-                <div class="fr-footer__content">
+                <!-- <div class="fr-footer__content">
                     <h4 class="fr-footer__content-title">Services</h4>
                     <ul class="fr-footer__content-list">
                         <li class="fr-footer__content-item">
@@ -117,7 +117,7 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
                             <a href="#" class="fr-footer__content-link">Mon compte</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -125,7 +125,7 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
         <!-- BAS DU FOOTER -->
         <div class="fr-footer__bottom">
 
-            <ul class="fr-footer__bottom-list">
+            <!-- <ul class="fr-footer__bottom-list">
                 <li class="fr-footer__bottom-item">
                     <a href="#" class="fr-footer__bottom-link">Plan du site</a>
                 </li>
@@ -141,7 +141,7 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
                 <li class="fr-footer__bottom-item">
                     <a href="#" class="fr-footer__bottom-link">Gestion des cookies</a>
                 </li>
-            </ul>
+            </ul> -->
 
             <div class="fr-footer__bottom-copy">
                 <p>© 2025 - Moodle DSFR</p>
@@ -153,10 +153,11 @@ echo $OUTPUT->render_from_template('theme_moodle_dsfr/header', $headercontext);
 </footer>
 
 
-<?php echo $OUTPUT->standard_end_of_body_html(); ?>
+<?php 
+echo $OUTPUT->standard_end_of_body_html();
+ ?>
 
-<script type="module" src="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.module.min.js"></script>
-<script nomodule src="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.nomodule.min.js"></script>
+<!-- <script src="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.nomodule.min.js"></script> -->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -167,33 +168,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const userButton = document.querySelector('#action-menu-toggle-0'); // bouton du user menu
-    const baseMenu = document.querySelector('#action-menu-0-menu'); // menu généré par Moodle
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdownToggles = document.querySelectorAll('[data-bs-toggle="dropdown"]');
 
-    if (!userButton || !baseMenu) return;
+    dropdownToggles.forEach(toggle => {
+        // Trouve la div parent
+        const parent = toggle.closest('div');
+        if (!parent) return;
 
-    // Clone le menu pour l'affichage manuel
-    const manualMenu = baseMenu.cloneNode(true);
-    manualMenu.id = 'manual-usermenu';
-    manualMenu.style.display = 'none'; // caché par défaut
-    manualMenu.classList.add('dropdown-menu'); // conserve le style DSFR/Bootstrap
+        // Trouve le menu dropdown dans le parent
+        const baseMenu = parent.querySelector('.dropdown-menu');
+        if (!baseMenu) return;
 
-    // Injecte après le bouton
-    userButton.parentNode.appendChild(manualMenu);
+        // Clone du menu
+        const manualMenu = baseMenu.cloneNode(true);
+        manualMenu.style.display = 'none';   // caché par défaut
+        manualMenu.classList.add('dropdown-menu');
 
-    // Gestion du clic
-    userButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        const isVisible = manualMenu.style.display === 'block';
-        manualMenu.style.display = isVisible ? 'none' : 'block';
-    });
+        // Supprime l'ancien menu
+        baseMenu.remove();
 
-    // Ferme si on clique ailleurs
-    document.addEventListener('click', function(e) {
-        if (!userButton.contains(e.target) && !manualMenu.contains(e.target)) {
-            manualMenu.style.display = 'none';
-        }
+        // Ajoute le clone dans le parent
+        parent.appendChild(manualMenu);
+
+        // Gestion du clic bouton
+        toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isVisible = manualMenu.style.display === 'block';
+            manualMenu.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // Fermeture en cliquant ailleurs
+        document.addEventListener('click', function (e) {
+            if (!toggle.contains(e.target) && !manualMenu.contains(e.target)) {
+                manualMenu.style.display = 'none';
+            }
+        });
     });
 });
 
