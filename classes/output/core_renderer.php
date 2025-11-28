@@ -1,21 +1,27 @@
 <?php
+
 namespace theme_moodle_dsfr\output;
 
 defined('MOODLE_INTERNAL') || die();
 
-class core_renderer extends \theme_boost\output\core_renderer {
+class core_renderer extends \theme_boost\output\core_renderer
+{
     /**
      * Affiche les blocs de la région side-pre (compat avec anciens layouts).
      */
-    public function firstview_fakeblocks(): bool {
+    public function firstview_fakeblocks(): bool
+    {
         if ($this->page->blocks->region_has_content('side-pre', $this)) {
             return $this->blocks('side-pre');
         }
         return true;
     }
 
-
-    public function navbar(): string {
+    /**
+     * Modifie la menu navbar
+     */
+    public function navbar(): string
+    {
         global $PAGE;
         $items = $PAGE->navbar->get_items();
         if (empty($items)) {
@@ -31,14 +37,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $islast = $item === end($items);
 
             if ($url && !$islast) {
-                $breadcrumb .= '<li><a href="'.$url.'">'.$text.'</a></li>';
+                $breadcrumb .= '<li><a href="' . $url . '">' . $text . '</a></li>';
             } else {
-                $breadcrumb .= '<li aria-current="page">'.$text.'</li>';
+                $breadcrumb .= '<li aria-current="page">' . $text . '</li>';
             }
         }
 
         $breadcrumb .= '</ol></div></nav>';
         return $breadcrumb;
     }
-
 }
