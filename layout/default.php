@@ -89,7 +89,6 @@ echo $OUTPUT->doctype();
             <div class="fr-footer__bottom-copy">
                 <p>© 2025 - Moodle DSFR</p>
             </div>
-
         </div>
 
     </div>
