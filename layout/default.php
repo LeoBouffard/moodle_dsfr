@@ -82,17 +82,7 @@ echo $OUTPUT->doctype();
                     </a>
                 </div>
 
-                <li class="fr-footer__content-item">
-                    <a href="#" class="fr-footer__content-link">Support</a>
-                </li>
-                <li class="fr-footer__content-item">
-                    <a href="#" class="fr-footer__content-link">Documentation</a>
-                </li>
-                <li class="fr-footer__content-item">
-                    <a href="#" class="fr-footer__content-link">Mon compte</a>
-                </li>
-                </ul>
-            </div> -->
+            </div>
 
         </div>
         </div>
