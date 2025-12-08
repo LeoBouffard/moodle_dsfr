@@ -112,7 +112,7 @@ echo $OUTPUT->doctype();
 
         // Force l'affichage des menus déroulants au clique
         document.addEventListener('DOMContentLoaded', function() {
-            const dropdownToggles = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+            const dropdownToggles = document.querySelectorAll('[data-toggle="dropdown"]');
 
             dropdownToggles.forEach(toggle => {
                 // Trouve la div parent
