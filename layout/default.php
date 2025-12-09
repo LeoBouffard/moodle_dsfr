@@ -10,7 +10,7 @@ echo $OUTPUT->doctype();
     <?php echo $OUTPUT->standard_head_html(); ?>
     <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/lib/dsfr-assets/dsfr.min.css">
     <link rel="stylesheet" href="<?php echo $CFG->wwwroot; ?>/theme/moodle_dsfr/style/dsfr-overrides.css">
-
+    <link rel="icon" type="image/png" href="<?php echo s($CFG->wwwroot . '/theme/moodle_dsfr/pix/favicon.ico'); ?>">
 </head>
 
 <body <?php echo $OUTPUT->body_attributes(); ?>>
