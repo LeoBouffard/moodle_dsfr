@@ -15,7 +15,6 @@ echo $OUTPUT->doctype();
 
 <body <?php echo $OUTPUT->body_attributes(); ?>>
     <?php echo $OUTPUT->standard_top_of_body_html(); ?>
-
     <?php
     global $PAGE, $SITE;
     $renderer = $PAGE->get_renderer('core');
@@ -24,9 +23,30 @@ echo $OUTPUT->doctype();
     $primary = new core\navigation\output\primary($PAGE);
     $primarymenu = $primary->export_for_template($renderer);
 
+    $secondarynavigation = false;
+    
+    // 1. On vérifie si la page possède une navigation secondaire (Admin, Cours, etc.)
+    if ($PAGE->has_secondary_navigation()) {
+        
+        // 2. On récupère les données brutes de navigation
+        $nav_data = $PAGE->secondarynav;
+        
+        // 3. On injecte ces données dans le composant "More Menu" (Onglets)
+        $moremenu = new \core\navigation\output\more_menu($nav_data, 'nav-tabs');
+        
+        // 4. On génère le rendu pour le template
+        $secondarynavigation = $moremenu->export_for_template($OUTPUT);
+    }
+
     // User et langue menu
     $usermenu = $OUTPUT->user_menu();
     $langmenu = $OUTPUT->lang_menu();
+    $navbar = $OUTPUT->navbar();
+    $searchbox = $OUTPUT->search_box();
+
+    // Récupération du Switch d'édition et des Notifications/Messagerie
+    $editswitch = $OUTPUT->edit_switch();
+    $navbarplugins = $OUTPUT->navbar_plugin_output();
 
     // Contexte header
     $headercontext = [
@@ -36,6 +56,11 @@ echo $OUTPUT->doctype();
         'usermenu' => $usermenu,
         'langmenu' => $langmenu,
         'primarymenu' => $primarymenu,
+        'secondarymenu' => $secondarynavigation,
+        'editswitch' => $editswitch,
+        'navbarplugins' => $navbarplugins,
+        'searchbox' => $searchbox,
+        'navbar' => $navbar
     ];
 
     // Affichage header
@@ -43,13 +68,6 @@ echo $OUTPUT->doctype();
     ?>
 
     <!-- Contenu et fil d’Ariane -->
-    <nav class="navbar navbar-light bg-light pl-2" aria-label="Fil d’Ariane Moodle">
-        <div class="container-fluid">
-            <?php echo $OUTPUT->navbar(); ?>
-            <div class="ms-auto"><?php echo $OUTPUT->search_box(); ?></div>
-        </div>
-    </nav>
-
     <div id="page" class="container-fluid my-4">
         <div id="page-content" class="row">
             <?php if (!empty($OUTPUT->blocks('side-pre'))): ?>
@@ -66,93 +84,192 @@ echo $OUTPUT->doctype();
 
     <footer class="fr-footer" role="contentinfo" id="footer">
         <div class="fr-container">
-
-            <!-- SECTION PRINCIPALE -->
             <div class="fr-footer__body fr-footer__body--operator">
-
-                <!-- LOGO MINARM -->
                 <div class="fr-footer__brand fr-enlarge-link">
                     <a class="fr-footer__brand-link" href="/" title="Retour à l’accueil">
                         <p class="fr-logo">
-                            Ministère<br>
-                            des Armées<br>
-                            et des Anciens<br>
-                            combattants
+                            Ministère<br>des Armées<br>et des Anciens<br>combattants
                         </p>
                     </a>
                 </div>
-
             </div>
+            
+            <div class="fr-footer__bottom">
+                <?php
+                // --- FONCTION POUR RECUPERER L'URL DU FICHIER ---
+                // (Idéalement cette fonction irait dans une classe renderer, mais ici c'est plus simple)
+                $fs = get_file_storage();
+                $context = context_system::instance();
+                
+                // 1. URL Mentions Légales
+                $url_legal = null;
+                // On cherche dans la zone 'legal_pdf' définie dans settings.php
+                $files = $fs->get_area_files($context->id, 'theme_moodle_dsfr', 'legal_pdf', 0, 'itemid, filepath, filename', false);
+                if ($files) {
+                    $file = reset($files); // On prend le premier fichier trouvé
+                    // On génère l'URL publique
+                    $url_legal = moodle_url::make_pluginfile_url($context->id, 'theme_moodle_dsfr', 'legal_pdf', 0, '/', $file->get_filename());
+                }
 
-        </div>
-        </div>
+                // 2. URL Documentation
+                $url_doc = null;
+                // On cherche dans la zone 'doc_pdf'
+                $files = $fs->get_area_files($context->id, 'theme_moodle_dsfr', 'doc_pdf', 0, 'itemid, filepath, filename', false);
+                if ($files) {
+                    $file = reset($files);
+                    $url_doc = moodle_url::make_pluginfile_url($context->id, 'theme_moodle_dsfr', 'doc_pdf', 0, '/', $file->get_filename());
+                }
+                ?>
 
-        <!-- BAS DU FOOTER -->
-        <div class="fr-footer__bottom">
-            <div class="fr-footer__bottom-copy">
-                <p>© 2025 - Moodle DSFR</p>
+                <ul class="fr-footer__bottom-list">
+                    
+                    <?php if ($url_legal): ?>
+                    <li class="fr-footer__bottom-item">
+                        <a class="fr-footer__bottom-link" href="<?php echo $url_legal; ?>" target="_blank">
+                            Mentions légales
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <?php if ($url_doc): ?>
+                    <li class="fr-footer__bottom-item">
+                        <a class="fr-footer__bottom-link" href="<?php echo $url_doc; ?>" target="_blank">
+                            Documentation (PES)
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <li class="fr-footer__bottom-item">
+                        <span class="fr-footer__bottom-link">© 2025 - Moodle DSFR</span>
+                    </li>
+                </ul>
             </div>
-        </div>
-
         </div>
     </footer>
 
-
     <?php
+    echo $OUTPUT->standard_after_main_region_html();
+    echo $OUTPUT->standard_footer_html();
     echo $OUTPUT->standard_end_of_body_html();
     ?>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.dsfr && dsfr.core && typeof dsfr.core.start === 'function') {
-                dsfr.core.start({
-                    exclude: '.usermenu' // Exclut le menu utilisateur Moodle
-                });
+        require([
+            'core/moremenu',
+            'theme_boost/bootstrap/collapse', 
+            'theme_boost/bootstrap/dropdown',
+            'theme_boost/bootstrap/tab',
+            'theme_boost/bootstrap/alert',
+            'theme_boost/bootstrap/button',
+            'theme_boost/bootstrap/carousel',
+            'theme_boost/bootstrap/modal',
+            'theme_boost/bootstrap/popover',
+            'theme_boost/bootstrap/scrollspy',
+            'theme_boost/bootstrap/tooltip',
+            'theme_boost/bootstrap/toast',
+            'theme_boost/bootstrap/util'
+        ], function(MoreMenu) {
+            
+            // Fonction d'initialisation principale
+            const initMoodleDSFR = () => {
+                console.log('Moodle DSFR: Initialisation Vanilla JS.');
+
+                // --- 1. GESTION DES ONGLETS ADMIN (NAVIGATION SECONDAIRE) ---
+                const navTabs = document.querySelector('.secondary-navigation .nav-tabs');
+
+                if (navTabs) {
+                    // Initialisation du menu "Plus" de Moodle (MoreMenu)
+                    try {
+                        MoreMenu(navTabs);
+                    } catch (e) {
+                        console.warn('MoreMenu déjà initialisé ou erreur:', e);
+                    }
+
+                    // Réparation des liens et ajout des attributs Bootstrap
+                    const navItems = navTabs.querySelectorAll('.nav-item');
+                    navItems.forEach(li => {
+                        const link = li.querySelector('a.nav-link');
+                        const key = li.getAttribute('data-key'); 
+
+                        if (link && key) {
+                            const targetId = '#link' + key;
+                            const targetContent = document.querySelector(targetId);
+
+                            if (targetContent) {
+                                link.setAttribute('href', targetId);
+                                link.setAttribute('data-toggle', 'tab');
+                                link.setAttribute('role', 'tab');
+
+                                if (link.classList.contains('active')) {
+                                    targetContent.classList.add('active', 'show');
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // --- 2. TRANSFORMATION DES CATÉGORIES EN TUILES (STYLE CARD) ---
+                // --- SCRIPT TUILES CATÉGORIES (SIMPLIFIÉ) ---
+                // Note : L'image est maintenant gérée par le PHP (renderers.php)
+                const categories = document.querySelectorAll('.course_category_tree .category');
+
+                if (categories.length > 0) {
+                    categories.forEach(cat => {
+                        
+                        // 1. On ajoute la classe fr-card pour le style
+                        cat.classList.add('fr-card');
+
+                        // 2. On rend toute la carte cliquable
+                        // (Plus besoin de déplacer l'image, elle est déjà au bon endroit grâce au PHP)
+                        cat.style.cursor = 'pointer';
+                        cat.addEventListener('click', function(e) {
+                            const link = cat.querySelector('.categoryname a');
+                            // Si on clique ailleurs que sur le lien, on simule le clic
+                            if (link && e.target !== link) {
+                                window.location.href = link.href;
+                            }
+                        });
+                    });
+                }
+
+                // --- 3. INITIALISATION DSFR (OPTIONNEL) ---
+                if (window.dsfr && dsfr.core) {
+                    try { 
+                        dsfr.core.start({ exclude: '.usermenu' }); 
+                    } catch(e) { console.warn(e); }
+                }
+
+                // --- GESTION MENU ACTIF (Fix pour Catégories vs Accueil) ---
+                const currentUrl = window.location.href;
+                
+                // On vérifie si on est sur la page des catégories
+                if (currentUrl.includes('/course/index.php')) {
+                    
+                    // 1. On désactive "Accueil" (ou tout autre lien actif par erreur)
+                    const activeItems = document.querySelectorAll('.fr-nav__item--active');
+                    activeItems.forEach(item => {
+                        item.classList.remove('fr-nav__item--active');
+                        const link = item.querySelector('a');
+                        if (link) link.removeAttribute('aria-current');
+                    });
+
+                    // 2. On active "Catégories"
+                    const catNavItem = document.getElementById('nav-categories');
+                    if (catNavItem) {
+                        catNavItem.classList.add('fr-nav__item--active');
+                        const catLink = catNavItem.querySelector('a');
+                    }
+                }
+            };
+
+            // Gestion du chargement du DOM
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMoodleDSFR);
+            } else {
+                initMoodleDSFR();
             }
         });
-
-        // Force l'affichage des menus déroulants au clique
-        document.addEventListener('DOMContentLoaded', function() {
-            const dropdownToggles = document.querySelectorAll('[data-toggle="dropdown"]');
-
-            dropdownToggles.forEach(toggle => {
-                // Trouve la div parent
-                const parent = toggle.closest('div');
-                if (!parent) return;
-
-                // Trouve le menu dropdown dans le parent
-                const baseMenu = parent.querySelector('.dropdown-menu');
-                if (!baseMenu) return;
-
-                // Clone du menu
-                const manualMenu = baseMenu.cloneNode(true);
-                manualMenu.style.display = 'none'; // caché par défaut
-                manualMenu.classList.add('dropdown-menu');
-
-                // Supprime l'ancien menu
-                baseMenu.remove();
-
-                // Ajoute le clone dans le parent
-                parent.appendChild(manualMenu);
-
-                // Gestion du clic bouton
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const isVisible = manualMenu.style.display === 'block';
-                    manualMenu.style.display = isVisible ? 'none' : 'block';
-                });
-
-                // Fermeture en cliquant ailleurs
-                document.addEventListener('click', function(e) {
-                    if (!toggle.contains(e.target) && !manualMenu.contains(e.target)) {
-                        manualMenu.style.display = 'none';
-                    }
-                });
-            });
-        });
+        
     </script>
-
-
 </body>
 
 </html>
