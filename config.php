@@ -3,11 +3,12 @@ defined('MOODLE_INTERNAL') || die();
 
 $THEME->name = 'moodle_dsfr';
 $THEME->parents = ['boost'];
-$THEME->sheets = ['dsfr-overrides'];
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->scss = function($theme) {
-    return theme_moodle_dsfr_get_main_scss_content($theme);
-};
+$THEME->enable_dock = false;
+$THEME->yuicssmodules = array();
+$THEME->rendererfactory = 'theme_overridden_renderer_factory'; // instruction pour override le thème parent
+$THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
+
+$CFG->cachejs = false;
 
 // Appliquer le layout DSFR partout
 $THEME->layouts = [
@@ -18,33 +19,33 @@ $THEME->layouts = [
     ],
     'standard' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'course' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'coursecategory' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'incourse' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'frontpage' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'admin' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'mydashboard' => [
         'file' => 'default.php',
@@ -53,8 +54,8 @@ $THEME->layouts = [
     ],
     'mypublic' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
     'login' => [
         'file' => 'login.php',
@@ -68,8 +69,8 @@ $THEME->layouts = [
     ],
     'report' => [
         'file' => 'default.php',
-        'regions' => ['side-pre'],
-        'defaultregion' => 'side-pre',
+        'regions' => [],
+        'defaultregion' => '',
     ],
 
 ];

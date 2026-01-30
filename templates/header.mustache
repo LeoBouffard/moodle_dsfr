@@ -1,52 +1,100 @@
 <header class="fr-header pl-5">
-    <div class="fr-header__body">
-        <div class="fr-container fr-header__body-row">
+        <div class="fr-header__body">
+            <div class="fr-container fr-header__body-row">
 
-            <!-- Logo et titre -->
-            <div class="fr-header__brand fr-enlarge-link">
-                <a href="{{wwwroot}}" class="fr-header__brand-link">
-                    <p class="fr-logo">
-                        Ministère<br>des armées<br>et des anciens<br>combattants
-                    </p>
-                    <span class="fr-header__service">
-                        <span class="fr-header__service-title">{{sitetitle}}</span>
-                        <span class="fr-header__service-tagline">{{siteline}}</span>
-                    </span>
-                </a>
-            </div>
+                <div class="fr-header__brand fr-enlarge-link">
+                    <a href="{{wwwroot}}" class="fr-header__brand-link">
+                        <p class="fr-logo">
+                            Ministère<br>des armées<br>et des anciens<br>combattants
+                        </p>
+                        <span class="fr-header__service">
+                            <span class="fr-header__service-title">{{sitetitle}}</span>
+                            <span class="fr-header__service-tagline">{{siteline}}</span>
+                        </span>
+                    </a>
+                </div>
 
-            <!-- Menus utilisateur et langue -->
-            <div class="fr-header__tools">
-                <div class="fr-header__tools-links" data-fr-js-header-links="true">
-                    {{{usermenu}}}   <!-- Laisser Moodle gérer le HTML complet -->
-                    {{{langmenu}}}
+                <div class="fr-header__tools">
+                    <ul class="fr-btns-group">
+
+                        <li>
+                            {{{ navbarplugins }}}
+                        </li>
+
+                        <li>
+                            {{{ usermenu }}}
+                        </li>
+
+                        <li>
+                            {{{ langmenu }}}
+                        </li>
+
+                        <li>
+                            {{{ editswitch }}}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-
-    {{! Code obligatoire pour le menu principal horizontal DSFR }}
-    <nav class="fr-header__menu fr-menu" id="header-menu" aria-label="Menu principal">
-        <ul class="fr-menu__list fr-header__menu-links">
-            <!-- Laisse vide, DSFR remplira / ou ton menu Moodle -->
-        </ul>
-    </nav>
-
-
-    <!-- Menu principal horizontal -->
-</header>
+    
+    </header>
 
     <div class="fr-header__menu fr-nav d-flex justify-content-around flex-wrap" role="navigation">
+
         {{#primarymenu.mobileprimarynav}}
+
             <nav class="fr-nav__section flex-grow-1 text-center">
+
                 <ul class="fr-nav__list">
+
                     {{#.}}
+
                         <li class="fr-nav__item {{#isactive}}fr-nav__item--active{{/isactive}}">
+
                             <a href="{{url}}" class="fr-nav__link">{{text}}</a>
+
                         </li>
+
                     {{/.}}
+
                 </ul>
+
             </nav>
+
         {{/primarymenu.mobileprimarynav}}
+
+            <nav class="fr-nav__section flex-grow-1 text-center">
+
+                <ul class="fr-nav__list">
+
+                        <li class="fr-nav__item" id="nav-categories">
+
+                            <a href="{{config.wwwroot}}/course/index.php" class="fr-nav__link">Catégories</a>
+
+                        </li>
+
+                </ul>
+
+            </nav>
+
+    </div>
+
+
+
+    <!-- Menu secondaire horizontal -->
+    <!-- Contenu et fil d’Ariane -->
+        <nav class="navbar navbar-light bg-light pl-2" aria-label="Fil d’Ariane Moodle">
+            <div class="container-fluid">
+                {{{ navbar }}}
+                <div class="ms-auto">{{{ searchbox }}}</div>
+            </div>
+        </nav>
+            <div class="fr-header__menu fr-nav d-flex justify-content-around flex-wrap" role="navigation">
+
+        {{#secondarymenu}}
+        <div class="secondary-navigation d-print-none">
+                {{> core/moremenu}}
+        </div>
+        {{/secondarymenu}}
     </div>
 

@@ -1,13 +1,14 @@
 /* === Correction des débordements horizontaux === */
 
 /* Empêche les scrollbars horizontales dues aux marges DSFR/Bootstrap */
-html, body {
-  overflow-x: hidden !important;
-  margin: 0;
-  padding: 0;
-  height: auto !important;
-  overflow-y: visible !important;
-  pointer-events: all !important;
+html,
+body {
+    overflow-x: hidden !important;
+    margin: 0;
+    padding: 0;
+    height: auto !important;
+    overflow-y: visible !important;
+    pointer-events: all !important;
 
 }
 
@@ -17,36 +18,36 @@ html, body {
 .fr-container,
 .container,
 .container-fluid {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-  max-width: 100% !important;
-  box-sizing: border-box;
-}
-
-/* Évite que certaines zones de Moodle (comme le drawer) ne débordent */
-#page {
-  overflow-x: hidden;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
 }
 
 /* Ajuste le comportement du drawer Boost */
 .drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  z-index: 1040;
-  background: #fff;
-  border-right: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1040;
+    background: #fff;
+    border-right: 1px solid #ddd;
 }
 
+/* ==========================
+   STYLE DES ELEMENTS CLIQUABLES
+   ========================== */
 
 .btn-primary {
     background-color: #000091;
 }
 
-.btn:hover, .nav-link:hover, .dropdown-item:hover {
+.btn:hover,
+.nav-link:hover,
+.dropdown-item:hover {
     border-color: #000091;
     color: #000091;
 }
@@ -55,17 +56,21 @@ html, body {
     color: #000091;
 }
 
-a:hover{
+a:hover {
     color: #000091;
     text-decoration: none;
 }
 
-[class*="btn-"]:focus, [class*="form-"]:focus, a.dropdown-toggle:focus,[role="treeitem"][aria-expanded="true"]:focus>*:first-child, [role="treeitem"]:not([aria-expanded="true"]):focus  {
+[class*="btn-"]:focus,
+[class*="form-"]:focus,
+a.dropdown-toggle:focus,
+[role="treeitem"][aria-expanded="true"]:focus>*:first-child,
+[role="treeitem"]:not([aria-expanded="true"]):focus {
     box-shadow: 0 0 0 .25rem #000091;
 }
 
 .maincalendar .calendarmonth td.today .day-number-circle {
-    background-color : #000091
+    background-color: #000091
 }
 
 
@@ -75,13 +80,17 @@ a:hover{
 
 .fr-header__menu.d-flex {
     display: flex;
-    justify-content: center; /* tout centré globalement */
+    justify-content: center;
+    /* tout centré globalement */
     align-items: center;
     flex-wrap: wrap;
-    gap: 0; /* pas d’espace entre navs, on gère avec les bordures */
+    gap: 0;
+    /* pas d’espace entre navs, on gère avec les bordures */
     width: 100%;
-    border-top: 1px solid var(--border-default-grey); /* optionnel : ligne au-dessus */
-    border-bottom: 1px solid var(--border-default-grey); /* optionnel : ligne en dessous */
+    border-top: 1px solid var(--border-default-grey);
+    /* optionnel : ligne au-dessus */
+    border-bottom: 1px solid var(--border-default-grey);
+    /* optionnel : ligne en dessous */
     background: var(--background-default-grey);
     padding: 0.5rem 0;
 }
@@ -93,7 +102,8 @@ a:hover{
 }
 
 .fr-header__menu nav.fr-nav__section:first-child {
-    border-left: none; /* pas de bordure sur le premier */
+    border-left: none;
+    /* pas de bordure sur le premier */
 }
 
 .fr-header__menu .fr-nav__list {
@@ -143,9 +153,12 @@ a:hover{
 /* Hover uniquement sur le texte */
 #manual-usermenu a:hover,
 #action-menu-0-menu a:hover {
-    color: #000091; /* Bleu marine DSFR */
-    background-color: transparent !important; /* Pas de fond coloré */
-    text-decoration: underline; /* Optionnel : souligne au survol */
+    color: #000091;
+    /* Bleu marine DSFR */
+    background-color: transparent !important;
+    /* Pas de fond coloré */
+    text-decoration: underline;
+    /* Optionnel : souligne au survol */
 }
 
 /* Bordure subtile entre les éléments */
@@ -177,7 +190,8 @@ a:hover{
 }
 
 .login-container h1 {
-    color: #000091; /* bleu DSFR */
+    color: #000091;
+    /* bleu DSFR */
     text-align: center;
 }
 
@@ -192,13 +206,15 @@ a:hover{
 
 /* Groupe des catégories (Liens utiles / Services) alignées horizontalement */
 .fr-footer__content-group {
-    margin-left : 40%;
+    margin-left: 40%;
     display: flex;
     flex-wrap: nowrap;
     gap: 15rem;
 }
 
-@media (max-width: 1332px) { /* breakpoint tablette/mobile */
+@media (max-width: 1332px) {
+
+    /* breakpoint tablette/mobile */
     .fr-footer__content-group {
         margin-left: 10%;
     }
@@ -256,4 +272,379 @@ a:hover{
 .fr-footer,
 .fr-footer * {
     text-align: left !important;
+}
+
+/* --- TUILES CATÉGORIES (Adapté à ton HTML) --- */
+
+/* 1. La Grille (Le conteneur principal) */
+.course_category_tree .subcategories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 1.5rem;
+}
+
+/* 2. La Carte (L'élément .category) */
+.course_category_tree .category {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px; /* Coins arrondis */
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Coupe l'image dans les coins */
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    height: 100%; /* Uniformiser la hauteur */
+    min-height: 220px;
+}
+
+/* Effet au survol : la carte monte un peu + ombre */
+.course_category_tree .category:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+/* 3. L'Image de couverture (Gérée par le JS) */
+.category-image-container {
+    width: 100%;
+    height: 140px; /* Hauteur fixe de la bannière */
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Style par défaut si PAS d'image (Le dégradé Moodle-like) */
+.category-image-container.no-image {
+    background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* S'assurer que l'image injectée par PHP remplit bien le cadre */
+.category-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Coupe l'image proprement sans la déformer */
+    display: block;
+}
+
+/* 4. Le bloc d'information (Titre) */
+.course_category_tree .category .info {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(180deg, #0000913b 0%, #ffffff 45%);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 80px;
+}
+
+/* 5. Le Titre (Adapté à ta classe .categoryname) */
+.course_category_tree .category .categoryname {
+    margin: 0;
+    padding: 0;
+    background: none !important; /* On vire les styles par défaut */
+}
+
+.course_category_tree .category .categoryname a {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #161616; /* Noir texte DSFR */
+    text-decoration: none;
+    background-image: none !important; /* Supprime l'icône dossier par défaut */
+    padding-left: 0 !important;
+    display: block;
+    line-height: 1.4;
+}
+
+.course_category_tree .category .categoryname a:hover {
+    color: var(--blue-france-sun-113-625);
+    text-decoration: underline;
+}
+
+/* 6. NETTOYAGE IMPORTANT */
+/* On cache le contenu interne (la liste des cours .courses) */
+/* Car on veut une tuile cliquable, pas un accordéon ouvert */
+.course_category_tree .category .content {
+    display: none !important;
+}
+
+/* On cache les icônes de chargement Moodle */
+.course_category_tree .category .spinner {
+    display: none !important;
+}
+
+/* Masquer la barre "Tout déplier" qui fait tache en haut */
+.course_category_tree .collapsible-actions {
+    display: none !important;
+}
+
+/* Optionnel : Une icône par défaut si pas d'image */
+.category-image-container.no-image::after {
+    content: "\f07b"; /* Folder icon fontawesome */
+    font-family: FontAwesome;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.3);
+}
+
+/* --- Description textuelle dans les tuiles catégories --- */
+
+.category-desc {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+    margin-bottom: 0.1rem;
+    line-height: 1.4;
+    
+    /* Technique pour limiter à 3 lignes (Webkit box) */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* On s'assure que le contenu HTML riche (p, ul, etc.) ne casse pas tout */
+.category-desc p {
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+}
+.category-desc *:last-child {
+    margin-bottom: 0;
+}
+
+.categoryname {
+    margin-left : 0 !important;
+    padding-left : 0 !important;
+}
+
+/* --- TUILES POUR LES COURS (Grid & Card) --- */
+
+/* 1. La Grille des cours */
+/* On cible la div qui contient la liste des cours */
+.course_category_tree .courses {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 1rem;
+}
+
+/* 2. La Carte Cours (.coursebox) */
+.coursebox {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    position: relative;
+}
+
+/* Effet survol */
+.coursebox:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    z-index: 5;
+}
+
+/* 3. Zone Cover (Image ou Dégradé) */
+.course-cover-container {
+    height: 130px;
+    width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.course-cover-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- LES DÉGRADÉS (Générés par PHP) --- */
+
+/* Bleu (Style Moodle défaut) */
+.course-cover-container.gradient-blue {
+    background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+}
+
+/* Violet / Rose */
+.course-cover-container.gradient-purple {
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+
+/* Vert / Turquoise */
+.course-cover-container.gradient-green {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+/* Orange / Soleil */
+.course-cover-container.gradient-orange {
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+
+/* 4. Ajustements du contenu texte */
+.coursebox .info {
+    padding: 1rem 1.25rem 0.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+.coursebox .info .coursename {
+    margin-left: 0;
+}
+
+.coursebox .info .coursename a {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #161616;
+    text-decoration: none;
+    background-image: none !important; /* Pas d'icône dossier/chapeau */
+    padding-left: 0 !important;
+    display: block;
+    line-height: 1.4;
+}
+
+.coursebox .info .coursename a:hover {
+    color: var(--blue-france-sun-113-625);
+    text-decoration: underline;
+}
+
+/* Masquer le résumé pour garder des cartes compactes (Optionnel) */
+/* Si tu veux voir le résumé, supprime ce bloc */
+.coursebox .content .summary {
+    display: none;
+}
+
+/* Icônes d'enseignants ou infos en bas */
+.coursebox .content {
+    padding: 0 1.25rem 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: #666;
+    flex-grow: 1;
+}
+
+/* --- GRILLE DES COURS SUR L'ACCUEIL --- */
+
+/* Cible la liste des cours disponibles sur la page d'accueil */
+.frontpage-course-list-all, 
+.frontpage-course-list-enrolled {
+    display: grid;
+    /* Créer des colonnes auto-adaptables (min 300px de large) */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Espace entre les cartes (gère le margin en dessous et sur les côtés) */
+    gap: 30px; 
+    margin-bottom: 2rem; /* Marge globale en bas de liste */
+}
+
+/* S'assurer que les cartes prennent toute la hauteur de la grille */
+.frontpage-course-list-all .coursebox,
+.frontpage-course-list-enrolled .coursebox {
+    height: 100%;
+}
+
+/* Style du conteneur de catégorie (La DIV) */
+.course-card-category {
+    /* Une div est "block" par défaut, donc le saut de ligne est automatique */
+    margin-bottom: 0.25rem; /* Petit espace avant le titre du cours */
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 10;
+    position: relative;
+    line-height: 1;
+}
+
+/* Style du lien À L'INTÉRIEUR de la div */
+.course-card-category a {
+    color: #666; /* Gris par défaut */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* Au survol du lien uniquement */
+.course-card-category a:hover {
+    color: var(--blue-france-sun-113-625);
+    text-decoration: underline;
+}
+
+.courseimage {
+    display: none !important;
+}
+
+/* --- GESTION VISIBILITÉ MENU CATÉGORIES --- */
+
+/* Par défaut, le lien est visible (pour les connectés). */
+/* Mais si Moodle ajoute la classe 'notloggedin' au body (utilisateur déconnecté)... */
+body.notloggedin #nav-categories {
+    display: none !important;
+}
+
+/* =======================================================
+   ALIGNEMENT HEADER
+   ======================================================= */
+
+/* 1. On force le conteneur principal à être Flex (Logo à gauche, Outils à droite) */
+.fr-header__body-row {
+    display: flex !important;
+    align-items: center !important; /* Centre verticalement */
+    justify-content: space-between !important; /* Pousse les bords */
+}
+
+.fr-header__tools {
+    flex : 0 1 auto !important;
+}
+
+/* 2. On s'attaque à la liste des outils (Notifications, User, Langue, Edit) */
+.fr-header__tools .fr-btns-group {
+    display: flex !important;       /* Active le mode Flexbox */
+    flex-direction: row !important; /* Force la ligne HORIZONTALE */
+    align-items: center !important; /* Centre tout le monde verticalement */
+    flex-wrap: nowrap !important;   /* Interdit le passage à la ligne */
+    gap: 1rem;                      /* Espace propre entre chaque élément */
+    margin-bottom: 0 !important;    /* Vire les marges parasites */
+}
+
+/* 3. On s'assure que chaque puce <li> est aussi alignée */
+.fr-header__tools .fr-btns-group > li {
+    width: auto !important;      /* Écrase le 100% du framework */
+    max-width: none !important;  /* Enlève la limite de largeur */
+    flex: 0 0 auto !important;   /* Empêche l'élément de grandir */
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    margin: 0 !important;
+}
+
+/* 4. Le correctif CRUCIAL : Moodle met des marges sur les formulaires (Langue & Edit Mode) */
+/* C'est souvent ça qui casse l'alignement */
+.fr-header__tools form {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 5. Petit ajustement pour le selecteur de langue (pour qu'il ne soit pas énorme) */
+.fr-header__tools .custom-select {
+    height: auto !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    margin: 0 !important;
+}
+
+/* 6. On aligne le nom de l'utilisateur et son avatar */
+.fr-header__tools .usermenu .dropdown-toggle {
+    display: flex !important;
+    align-items: center !important;
 }
