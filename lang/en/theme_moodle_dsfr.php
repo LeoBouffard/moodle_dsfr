@@ -2,11 +2,15 @@
 // lang/en/theme_moodle_dsfr.php
 // English strings for the DSFR theme.
 
-// defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Moodle DSFR';
-$string['choosereadme'] = 'Moodle DSFR is a theme created for the Ministry of the French Armed Forces.';
-$string['legalfile'] = 'Fichier Mentions Légales (PDF)';
-$string['legalfile_desc'] = 'Déposez le PDF des mentions légales ici.';
-$string['docfile'] = 'Fichier Documentation / PES (PDF)';
-$string['docfile_desc'] = 'Déposez le PDF de documentation ici.';
+$string['choosereadme'] = 'Moodle DSFR is a theme created for the French Ministry of Armed Forces.';
+$string['legalfile'] = 'Legal Notice File (PDF)';
+$string['legalfile_desc'] = 'Upload the Legal Notice PDF file here.';
+$string['docfile'] = 'Documentation / PES File (PDF)';
+$string['docfile_desc'] = 'Upload the documentation PDF file here.';
+$string['menu_categories'] = 'Categories';
+$string['menu_category'] = 'Category';
+$string['menu_course'] = 'Course';
+$string['all_categories'] = 'See all categories';

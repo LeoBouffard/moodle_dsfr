@@ -67,7 +67,7 @@ class theme_moodle_dsfr_core_course_renderer extends core_course_renderer {
         // --- 4. BLOC INFO (TITRE + DESCRIPTION) ---
         $content .= html_writer::start_tag('div', array('class' => 'info'));
 
-        $content .= html_writer::div("CATEGORIE", 'category-desc');
+        $content .= html_writer::div(mb_strtoupper(get_string('menu_category', 'theme_moodle_dsfr')), 'category-desc');
         // Le Titre
         $categoryname = $coursecat->get_formatted_name();
         $categoryname = html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $coursecat->id)), $categoryname);
@@ -173,7 +173,7 @@ class theme_moodle_dsfr_core_course_renderer extends core_course_renderer {
 
         // --- 3. LE TITRE ET INFOS (.info) ---
         $content .= html_writer::start_tag('div', array('class' => 'info'));
-        $content .= html_writer::div("COURS", 'category-desc');
+        $content .= html_writer::div(mb_strtoupper(get_string('menu_course', 'theme_moodle_dsfr')), 'category-desc');
 
         // On récupère l'objet catégorie à partir de l'ID stocké dans le cours
         if (!empty($course->category) && $PAGE->pagetype === 'site-index') {
@@ -211,7 +211,7 @@ class theme_moodle_dsfr_core_course_renderer extends core_course_renderer {
         // 2. On crée le bouton vers les catégories
         $url = new moodle_url('/course/index.php');
         
-        $button = html_writer::link($url, 'Voir toutes les catégories', [
+        $button = html_writer::link($url, get_string('all_categories', 'theme_moodle_dsfr'), [
             'class' => 'btn btn-primary'
         ]);
 
