@@ -166,7 +166,8 @@ echo $OUTPUT->doctype();
             'theme_boost/bootstrap/scrollspy',
             'theme_boost/bootstrap/tooltip',
             'theme_boost/bootstrap/toast',
-            'theme_boost/bootstrap/util'
+            'theme_boost/bootstrap/base-component',
+            'theme_boost/bootstrap/offcanvas',
         ], function(MoreMenu) {
             
             // Fonction d'initialisation principale
@@ -174,39 +175,88 @@ echo $OUTPUT->doctype();
                 console.log('Moodle DSFR: Initialisation Vanilla JS.');
 
                 // --- 1. GESTION DES ONGLETS ADMIN (NAVIGATION SECONDAIRE) ---
-                const navTabs = document.querySelector('.secondary-navigation .nav-tabs');
+                const navTabs = document.querySelector('.secondary-navigation');
 
                 if (navTabs) {
-                    // Initialisation du menu "Plus" de Moodle (MoreMenu)
+                    // Moodle a besoin d'initialiser MoreMenu partout (Cours, Admin, etc.)
                     try {
                         MoreMenu(navTabs);
                     } catch (e) {
-                        console.warn('MoreMenu déjà initialisé ou erreur:', e);
+                        console.warn('MoreMenu erreur:', e);
                     }
 
-                    // Réparation des liens et ajout des attributs Bootstrap
-                    const navItems = navTabs.querySelectorAll('.nav-item');
-                    navItems.forEach(li => {
-                        const link = li.querySelector('a.nav-link');
-                        const key = li.getAttribute('data-key'); 
+                    // On vérifie si ce menu est le menu de l'administration du site.
+                    // Seul le menu admin possède un onglet avec data-key="siteadminnode"
+                    const isAdminMenu = navTabs.querySelector('li[data-key="siteadminnode"]');
 
-                        if (link && key) {
-                            const targetId = '#link' + key;
-                            const targetContent = document.querySelector(targetId);
+                    if (isAdminMenu) {
+                        const isAdminMainPage = document.querySelector('.tab-content #linkroot') !== null;
+                        const wwwroot = (typeof M !== 'undefined' && M.cfg) ? M.cfg.wwwroot : window.location.origin;
+                        const adminSearchUrl = wwwroot + '/admin/search.php';
 
-                            if (targetContent) {
-                                link.setAttribute('href', targetId);
-                                link.setAttribute('data-toggle', 'tab');
-                                link.setAttribute('role', 'tab');
-
-                                if (link.classList.contains('active')) {
-                                    targetContent.classList.add('active', 'show');
+                        // 1. On prépare les liens avec des URLs absolues
+                        const allListItems = navTabs.querySelectorAll('li[data-key]');
+                        allListItems.forEach(li => {
+                            const link = li.querySelector('a');
+                            const key = li.getAttribute('data-key');
+                            
+                            if (link && key) {
+                                const targetHash = (key === 'siteadminnode') ? '#linkroot' : '#link' + key;
+                                
+                                link.setAttribute('href', adminSearchUrl + targetHash);
+                                
+                                if (isAdminMainPage) {
+                                    link.setAttribute('data-bs-toggle', 'tab');
                                 }
                             }
+                        });
+
+                        // 2. LA GESTION DU CLIC INTELLIGENTE
+                        navTabs.addEventListener('click', function(e) {
+                            const clickedLink = e.target.closest('a');
+                            
+                            if (clickedLink && clickedLink.closest('li[data-key]')) {
+                                if (isAdminMainPage) {
+                                    e.preventDefault(); 
+                                    e.stopPropagation();
+
+                                    const targetId = clickedLink.getAttribute('href').split('#')[1];
+                                    const targetContent = document.getElementById(targetId);
+
+                                    if (targetContent) {
+                                        navTabs.querySelectorAll('a.active').forEach(nav => {
+                                            nav.classList.remove('active');
+                                            nav.setAttribute('aria-selected', 'false');
+                                        });
+                                        
+                                        document.querySelectorAll('.tab-pane').forEach(pane => {
+                                            pane.classList.remove('active', 'show');
+                                        });
+
+                                        clickedLink.classList.add('active');
+                                        clickedLink.setAttribute('aria-selected', 'true');
+                                        targetContent.classList.add('active', 'show');
+                                        
+                                        history.replaceState(null, null, '#' + targetId);
+                                    }
+                                }
+                            }
+                        });
+
+                        // 3. OUVERTURE AUTOMATIQUE
+                        if (isAdminMainPage && window.location.hash) {
+                            const activeHash = window.location.hash;
+                            const linkToActivate = navTabs.querySelector(`a[href$="${activeHash}"]`);
+                            if (linkToActivate) {
+                                linkToActivate.click();
+                            }
                         }
-                    });
+                    }
+                    // Si on n'est pas dans l'admin (ex: on est dans un cours), on ne fait rien ! 
+                    // Les liens "Participants", "Notes", etc. garderont leur URL d'origine.
                 }
 
+                
                 // --- 2. TRANSFORMATION DES CATÉGORIES EN TUILES (STYLE CARD) ---
                 // --- SCRIPT TUILES CATÉGORIES (SIMPLIFIÉ) ---
                 // Note : L'image est maintenant gérée par le PHP (renderers.php)
