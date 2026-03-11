@@ -166,8 +166,7 @@ echo $OUTPUT->doctype();
             'theme_boost/bootstrap/scrollspy',
             'theme_boost/bootstrap/tooltip',
             'theme_boost/bootstrap/toast',
-            'theme_boost/bootstrap/base-component',
-            'theme_boost/bootstrap/offcanvas',
+            'theme_boost/bootstrap/util',
         ], function(MoreMenu) {
             
             // Fonction d'initialisation principale
@@ -206,7 +205,7 @@ echo $OUTPUT->doctype();
                                 link.setAttribute('href', adminSearchUrl + targetHash);
                                 
                                 if (isAdminMainPage) {
-                                    link.setAttribute('data-bs-toggle', 'tab');
+                                    link.setAttribute('data-toggle', 'tab');
                                 }
                             }
                         });
