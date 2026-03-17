@@ -281,6 +281,29 @@ echo $OUTPUT->doctype();
                     });
                 }
 
+                // --- RENDRE LES CARTES DE COURS ENTIÈREMENT CLIQUABLES ---
+                const courses = document.querySelectorAll('.coursebox');
+
+                if (courses.length > 0) {
+                    courses.forEach(courseCard => {
+                        
+                        // 1. On change le curseur pour montrer que c'est cliquable
+                        courseCard.style.cursor = 'pointer';
+
+                        // 2. On écoute le clic sur toute la carte
+                        courseCard.addEventListener('click', function(e) {
+                            
+                            // Dans Moodle, le lien du cours est généré avec la classe .coursename
+                            const link = courseCard.querySelector('.coursename a'); 
+                            
+                            // Si on clique ailleurs que sur le texte du lien lui-même, on redirige
+                            if (link && e.target !== link) {
+                                window.location.href = link.href;
+                            }
+                        });
+                    });
+                }   
+
                 // --- 3. INITIALISATION DSFR (OPTIONNEL) ---
                 if (window.dsfr && dsfr.core) {
                     try { 
