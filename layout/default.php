@@ -340,6 +340,25 @@ echo $OUTPUT->doctype();
             } else {
                 initMoodleDSFR();
             }
+
+            // --- RENDRE LES MENUS DÉROULANTS (DATA-VALUE) CLIQUABLES ---
+            const dropdownOptions = document.querySelectorAll('li.dropdown-item[data-value]');
+
+            if (dropdownOptions.length > 0) {
+                dropdownOptions.forEach(option => {
+                    // 1. On met le curseur "petite main" pour l'UX
+                    option.style.cursor = 'pointer';
+                    
+                    // 2. On intercepte le clic
+                    option.addEventListener('click', function() {
+                        const targetUrl = this.getAttribute('data-value');
+                        // 3. On redirige vers l'URL cachée dans le data-value
+                        if (targetUrl) {
+                            window.location.href = targetUrl;
+                        }
+                    });
+                });
+            }
         });
         
     </script>
