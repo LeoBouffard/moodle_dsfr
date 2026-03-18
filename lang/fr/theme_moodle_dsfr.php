@@ -14,3 +14,5 @@ $string['menu_categories'] = 'Catégories';
 $string['menu_category'] = 'Catégorie';
 $string['menu_course'] = 'Cours';
 $string['all_categories'] = 'Voir toutes les catégories';
+$string['legal_notices'] = 'Mentions légales';
+$string['doc_pes'] = 'Documentation (PES)';
