@@ -126,7 +126,7 @@ echo $OUTPUT->doctype();
                     <?php if ($url_legal): ?>
                     <li class="fr-footer__bottom-item">
                         <a class="fr-footer__bottom-link" href="<?php echo $url_legal; ?>" target="_blank">
-                            Mentions légales
+                            <?php echo get_string('legal_notices', 'theme_moodle_dsfr'); ?>
                         </a>
                     </li>
                     <?php endif; ?>
@@ -134,7 +134,7 @@ echo $OUTPUT->doctype();
                     <?php if ($url_doc): ?>
                     <li class="fr-footer__bottom-item">
                         <a class="fr-footer__bottom-link" href="<?php echo $url_doc; ?>" target="_blank">
-                            Documentation (PES)
+                            <?php echo get_string('doc_pes', 'theme_moodle_dsfr'); ?>
                         </a>
                     </li>
                     <?php endif; ?>
